@@ -1,10 +1,11 @@
 package pojo;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class Transaction {
-    private String date;
-    private int amount;
-    private String transactionType;
+    public String date;
+    public int amount;
+    public String transactionType;
 }

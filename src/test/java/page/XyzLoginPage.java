@@ -1,4 +1,5 @@
 package page;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,21 +19,25 @@ public class XyzLoginPage extends BasePage{
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitLoginButton;
 
+    @Step("Клик по кнопке 'Customer Login'")
     public XyzLoginPage clickCustomerLoginButton(){
         wait.until(visibilityOf(customerLoginButton));
         customerLoginButton.click();
         return this;
     }
 
+    @Step("Клик по кнопке 'Login'")
     public XyzLoginPage clickSubmitLoginButton(){
         wait.until(visibilityOf(submitLoginButton));
         submitLoginButton.click();
         return this;
     }
 
-    public XyzLoginPage selectTestUser(){
+    @Step("Выбор Имени: {userName} в селекторе")
+    public XyzLoginPage selectTestUser(String userName) {
         wait.until(visibilityOf(yourNameSelector));
-        new Select(yourNameSelector).selectByVisibleText(getCommonProperty("userName"));
+        new Select(yourNameSelector).selectByVisibleText(userName);
         return this;
     }
+
 }

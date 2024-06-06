@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import page.XyzAccountPage;
 import page.XyzLoginPage;
-import page.XyzTransactionPage;
+import utils.TransactionSerialize;
 
 import static utils.ConfProperties.getCommonProperty;
 import static utils.NotTestUtils.fibonacci;
@@ -16,13 +16,13 @@ import static utils.NotTestUtils.fibonacci;
 public class WorkTest extends BaseTest {
     private XyzAccountPage accountPage;
     private XyzLoginPage loginPage;
-    private XyzTransactionPage transactionPage;
+    private TransactionSerialize transaction;
     @BeforeEach
     @Step("Инициализация страниц")
     public void before() {
         accountPage = new XyzAccountPage(driver);
         loginPage = new XyzLoginPage(driver);
-        transactionPage = new XyzTransactionPage(driver);
+        transaction = new TransactionSerialize(driver);
     }
 
     @Feature("Отправка транзакций")
@@ -31,19 +31,22 @@ public class WorkTest extends BaseTest {
     @RepeatedIfExceptionsTest(repeats = 3)
     @Issue("XYZ-UI-Transaction")
     @DisplayName("Тест работоспособности отправки транзакций")
-    public void uiTransactionTest() {
+    public void transactionTest() {
         driver.get(getCommonProperty("loginPageUrl"));
-        loginPage.clickCustomerLoginButton().selectTestUser().clickSubmitLoginButton();
+        loginPage.clickCustomerLoginButton().selectTestUser(getCommonProperty("userName")).clickSubmitLoginButton();
         var fibonacci = fibonacci();
         accountPage.clickDepositButton()
                 .fillAmountDepositInput(fibonacci)
                 .clickSubmitDepositButton()
                 .clickWithDrawlButton()
-                .fillAmountWithDrawInput(fibonacci)
-                .clickSubmitWithdrawButton();
+                .fillAmountWithDrawlInput(fibonacci)
+                .clickSubmitWithdrawlButton();
         Assertions.assertEquals("0",accountPage.getBalance());
-        accountPage.clickTransactionsButton();
-        transactionPage.writeTransactionsToCSV();
+        accountPage.clickTransactionsButton().refresh();
+        Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Credit"));
+        Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Debit"));
+        transaction.writeTransactionsToCSV();
+
 
     }
 
