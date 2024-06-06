@@ -29,9 +29,7 @@ public class BrowserInit {
                 case "grid":
                     switch (getCommonProperty("browserName")) {
                         case "chrome":
-                            chromeOptions = new ChromeOptions();
-                            chromeOptions.addArguments("--headless");
-                            driver = setUpRemoteDriver(chromeOptions);
+                            driver = setUpRemoteDriver(new ChromeOptions());
                             break;
                         case "firefox":
                             driver = setUpRemoteDriver(new FirefoxOptions());
