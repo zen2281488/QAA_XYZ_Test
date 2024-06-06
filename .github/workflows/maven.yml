@@ -33,6 +33,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+
       - name: Allure set up
         uses: simple-elf/allure-report-action@master
         if: always()
