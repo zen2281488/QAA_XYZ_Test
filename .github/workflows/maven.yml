@@ -33,7 +33,6 @@ jobs:
           CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
           curl -sS -o /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
           sudo unzip -o /tmp/chromedriver_linux64.zip -d /usr/local/bin
-          sudo mv /usr/local/bin/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run Selenium Grid
