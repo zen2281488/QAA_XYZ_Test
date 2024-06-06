@@ -23,26 +23,21 @@ jobs:
           distribution: 'corretto'
           cache: maven
 
-      - name: Download Selenium Server
+      - name: Install Chrome
         run: |
-          SELENIUM_VERSION="4.0.0-alpha-2"
-          wget -O selenium-server-standalone.jar "https://github.com/SeleniumHQ/selenium/releases/download/selenium-${SELENIUM_VERSION}/selenium-server-standalone-${SELENIUM_VERSION}.jar"
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
-      - name: Download Chromedriver
+      - name: Install ChromeDriver
         run: |
           CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget -N "https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip"
-          unzip chromedriver_linux64.zip -d .
+          curl -sS -o /tmp/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+          sudo unzip -o /tmp/chromedriver_linux64.zip -d /usr/local/bin
+          sudo mv /usr/local/bin/chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
 
-      - name: Start Selenium Hub
-        run: |
-          java -jar selenium-server-standalone.jar -role hub -port 4444 &
-          sleep 5
-
-      - name: Start Selenium Node
-        run: |
-          java -Dwebdriver.chrome.driver=./chromedriver -jar selenium-server-standalone.jar -role node -hub http://localhost:4444/grid/register -port 5555 &
-          sleep 5
+      - name: Run Selenium Grid
+        run: bash path/to/your/script.sh
 
       - name: Run WorkTests
         run: mvn -B package --file pom.xml
