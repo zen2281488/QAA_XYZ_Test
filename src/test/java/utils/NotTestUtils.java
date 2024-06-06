@@ -15,6 +15,5 @@ public class NotTestUtils {
         }
         return b;
     }
-
-
 }
+

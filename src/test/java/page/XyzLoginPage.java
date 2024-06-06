@@ -12,6 +12,8 @@ public class XyzLoginPage extends BasePage{
     public XyzLoginPage(WebDriver browser) {
         super(browser);
     }
+
+    //todo Wrong selector
     @FindBy(css = ".padT20 :nth-child(1) button")
     private WebElement customerLoginButton;
     @FindBy(id = "userSelect")

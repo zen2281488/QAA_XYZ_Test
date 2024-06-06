@@ -19,8 +19,11 @@ public class XyzAccountPage extends BasePage{
     private WebElement withDrawlButton;
     @FindBy(xpath = "//button[@ng-class='btnClass1']")
     private WebElement transactionsButton;
+
+    //todo Wrong selector
     @FindBy(xpath = "//label[contains(text(), 'Deposited')]/following-sibling::input")
     private WebElement amountDepositInput;
+    //todo Wrong selector
     @FindBy(xpath = "//label[contains(text(), 'Withdrawn')]/following-sibling::input")
     private WebElement amountWithDrawInput;
     @FindBy(xpath = "//button[text()='Withdraw']")
