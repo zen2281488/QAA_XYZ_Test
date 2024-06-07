@@ -80,12 +80,14 @@ public class XyzAccountPage extends BasePage{
     @Step("Заполнение поля Deposit числом фибоначи: {num} ")
     public XyzAccountPage fillAmountDepositInput(int num){
         wait.until(visibilityOf(amountDepositInput));
+        amountDepositInput.clear();
         amountDepositInput.sendKeys(Integer.toString(num));
         return this;
     }
     @Step("Заполнение поля WithDrawl числом фибоначи: {num} ")
     public XyzAccountPage fillAmountWithDrawlInput(int num){
         wait.until(visibilityOf(amountWithDrawInput));
+        amountWithDrawInput.clear();
         amountWithDrawInput.sendKeys(Integer.toString(num));
         return this;
     }
