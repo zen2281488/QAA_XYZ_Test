@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class TransactionSerialize extends BasePage {
 
-    private By tableRowsLocator = By.xpath("//table[@class='table table-bordered table-striped']/tbody/tr");
+    private By tableRowsLocator = By.cssSelector("tr.ng-scope");
     private SimpleDateFormat inputFormat = new SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.ENGLISH);
     private SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH);
 
