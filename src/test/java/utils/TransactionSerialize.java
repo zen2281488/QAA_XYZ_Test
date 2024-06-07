@@ -43,7 +43,7 @@ public class TransactionSerialize extends BasePage {
     }
 
     public List<Transaction> getTransactions() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tableRowsLocator));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
         List<WebElement> rows = browser.findElements(tableRowsLocator);
         List<Transaction> transactions = new ArrayList<>();
 
