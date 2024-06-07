@@ -12,13 +12,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class XyzTransactionPage extends BasePage {
 
-    private By tableRowsLocator = By.cssSelector("tr.ng-scope");
-    private SimpleDateFormat inputFormat = new SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.ENGLISH);
-    private SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH);
+    private final By tableRowsLocator = By.cssSelector("tr.ng-scope");
+    private final SimpleDateFormat inputFormat = new SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.ENGLISH);
+    private final SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH);
 
     public XyzTransactionPage(WebDriver browser) {
         super(browser);
@@ -45,7 +46,7 @@ public class XyzTransactionPage extends BasePage {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
         List<WebElement> rows = browser.findElements(tableRowsLocator);
 
-        return rows.stream().map(this::parseTransactionFromRow).filter(transaction -> transaction != null).collect(Collectors.toList());
+        return rows.stream().map(this::parseTransactionFromRow).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     public void writeTransactionsToCSV() {

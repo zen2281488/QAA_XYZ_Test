@@ -17,7 +17,6 @@ import static utils.ConfProperties.getCommonProperty;
 public class BrowserInit {
     private static final ThreadLocal<WebDriver> webdriver = new ThreadLocal<>();
     static RemoteWebDriver driver;
-    private static ChromeOptions chromeOptions;
 
     public static WebDriver getWebdriver() {
         if (webdriver.get() == null) {
@@ -37,7 +36,7 @@ public class BrowserInit {
                         case "chromeActions":
                             WebDriverManager.chromedriver().setup();
                             System.setProperty("webdriver.http.factory", "jdk-http-client");
-                            chromeOptions = new ChromeOptions().addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
+                            ChromeOptions chromeOptions = new ChromeOptions().addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
                             if (getCommonBoolProperty("headlessMode")) {
                                 chromeOptions.setHeadless(true);
                             }
