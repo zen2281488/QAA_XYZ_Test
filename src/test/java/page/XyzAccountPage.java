@@ -28,7 +28,7 @@ public class XyzAccountPage extends BasePage {
     private WebElement submitDepositButton;
     @FindBy(css = ".center strong:nth-child(2)")
     private WebElement balance;
-    @FindBy(css = ".error")
+    @FindBy(className = "error")
     private WebElement message;
 
     @Step("Клик по кнопке 'Deposit'")

@@ -15,21 +15,22 @@ import page.XyzAccountPage;
 import page.XyzLoginPage;
 import page.XyzTransactionPage;
 
-import static utils.ConfProperties.getCommonProperty;
-import static utils.NotTestUtils.fibonacci;
+import static testUtils.ConfProperties.getProperty;
+import static testUtils.MathUtils.fibonacci;
+import static testUtils.TransactionUtils.writeTransactionsToCSV;
 
 @Epic("Тесты работоспособности элементов.")
 public class WorkTest extends BaseTest {
     private XyzAccountPage accountPage;
     private XyzLoginPage loginPage;
-    private XyzTransactionPage transaction;
+    private XyzTransactionPage transactionPage;
 
     @BeforeEach
     @Step("Инициализация страниц")
     public void before() {
         accountPage = new XyzAccountPage(driver);
         loginPage = new XyzLoginPage(driver);
-        transaction = new XyzTransactionPage(driver);
+        transactionPage = new XyzTransactionPage(driver);
     }
 
     @Feature("Отправка транзакций")
@@ -39,16 +40,18 @@ public class WorkTest extends BaseTest {
     @Issue("XYZ-UI-Transaction")
     @DisplayName("Тест работоспособности отправки транзакций")
     public void transactionTest() {
-        driver.get(getCommonProperty("loginPageUrl"));
-        loginPage.clickCustomerLoginButton().selectTestUser(getCommonProperty("userName")).clickSubmitLoginButton();
+        driver.get(getProperty("loginPageUrl"));
+        loginPage.clickCustomerLoginButton().selectTestUser(getProperty("userName")).clickSubmitLoginButton();
         var fibonacci = fibonacci();
         accountPage.clickDepositButton().fillAmountDepositInput(fibonacci).clickSubmitDepositButton().clickWithDrawlButton().fillAmountWithDrawlInput(fibonacci).clickSubmitWithdrawlButton();
         driver.navigate().refresh();
         Assertions.assertEquals("0", accountPage.getBalance());
         accountPage.clickTransactionsButton();
-        Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Credit"));
-        Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Debit"));
-        transaction.writeTransactionsToCSV();
-
+        var transactions = transactionPage.getTransactions();
+        writeTransactionsToCSV(transactions);
+        Assertions.assertEquals(fibonacci, transactions.get(0).amount);
+        Assertions.assertEquals(fibonacci, transactions.get(1).amount);
+        Assertions.assertEquals("Credit", transactions.get(0).transactionType);
+        Assertions.assertEquals("Debit", transactions.get(1).transactionType);
     }
 }

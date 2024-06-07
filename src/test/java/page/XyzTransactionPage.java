@@ -7,7 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pojo.Transaction;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -25,6 +29,16 @@ public class XyzTransactionPage extends BasePage {
         super(browser);
     }
 
+    public List<Transaction> getTransactions() {
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
+        return browser
+                .findElements(tableRowsLocator)
+                .stream()
+                .map(this::parseTransactionFromRow)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
     private Transaction parseTransactionFromRow(WebElement row) {
         List<WebElement> cells = row.findElements(By.tagName("td"));
         if (cells.size() == 3) {
@@ -40,45 +54,5 @@ public class XyzTransactionPage extends BasePage {
             }
         }
         return null;
-    }
-
-    public List<Transaction> getTransactions() {
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
-        List<WebElement> rows = browser.findElements(tableRowsLocator);
-
-        return rows.stream().map(this::parseTransactionFromRow).filter(Objects::nonNull).collect(Collectors.toList());
-    }
-
-    public void writeTransactionsToCSV() {
-        String filePath = null;
-        try {
-            List<Transaction> transactions = getTransactions();
-            File directory = new File("output");
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-            filePath = directory.getAbsolutePath() + File.separator + "transactions.csv";
-            try (FileWriter writer = new FileWriter(filePath)) {
-                writer.append("Date,Amount,Transaction Type\n");
-                transactions.forEach(transaction -> {
-                    try {
-                        writer.append(transaction.getDate()).append(',').append(String.valueOf(transaction.getAmount())).append(',').append(transaction.getTransactionType()).append('\n');
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        try (InputStream is = new FileInputStream(filePath)) {
-            Allure.addAttachment("Transactions CSV", "text/csv", is, ".csv");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public boolean verifyTransaction(int amount, String type) {
-        return getTransactions().stream().anyMatch(transaction -> transaction.getAmount() == amount && transaction.getTransactionType().equals(type));
     }
 }
