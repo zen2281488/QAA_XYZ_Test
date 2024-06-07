@@ -64,7 +64,7 @@ public class BrowserInit {
                 case "localwork":
                     switch (getCommonProperty("browserName")) {
                         case "chromeActions":
-                            WebDriverManager.chromedriver().driverVersion("125").setup();
+                            WebDriverManager.chromedriver().driverVersion("125").browserVersion("125").setup();
                             chromeOptions = new ChromeOptions()
                                     .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
                             if (getCommonBoolProperty("headlessMode")) {
