@@ -18,7 +18,8 @@ https://zen2281488.github.io/Simbir_Test/44/index.html -  ссылка на Allu
 - **Утилиты**:
   - `BrowserInit.java`: Находится в `src/test/java/testUtils/`, этот класс инициализирует браузер.
   - `ConfProperties.java`: Также в `src/test/java/testUtils/`, этот класс обрабатывает свойства из файла конфигурации.
-  - `NotTestUtils.java`: В той же директории, этот класс включает метод для расчета чисел Фибоначчи.
+  - `MathUtils.java`: В той же директории, этот класс включает метод для расчета чисел Фибоначчи.
+  - `TransactionUtils.java`: В той же директории, этот класс содержит метод, записывающий сериализованные транзакции в файл csv
 
 - **Конфигурация**: Файл `conf.properties`, содержащий тестовые данные и настройки, используемые в `BrowserInit.java`, находится в `src/test/resources`.
 
@@ -69,22 +70,23 @@ https://zen2281488.github.io/Simbir_Test/44/index.html -  ссылка на Allu
 
 ## Project Structure
 
-- **Page Objects**: Located in `src/test/java/page`, these classes represent the page objects for the application under test.
+- **Page Objects**: Classes representing Page Objects for the tested application are located in `src/test/java/page`.
 
-- **Data Classes**: The `Transaction.java` class, which represents transaction data, is located in `src/test/java/pojo`.
+- **Data Classes**: The `Transaction.java` class, representing transaction data, is located in `src/test/java/pojo`.
 
 - **Test Classes**:
-    - `WorkTest.java` and the base test class `BaseTest.java` are located in `src/test/java/uiTests`.
-    - The base test class `BaseTest.java` provides common setup and teardown methods for the tests.
+  - `WorkTest.java` and the base test class `BaseTest.java` are located in `src/test/java/uiTests`.
+  - The base test class `BaseTest.java` provides common methods for test setup and teardown.
 
-- **Selenium Grid**: The `selenium-server-standalone-4.0-alpha-2.jar` file is located in `src/test/java/testUtils/seleniumGrid`.
+- **Selenium Grid**: The file `selenium-server-standalone-4.0-alpha-2.jar` is located in `src/test/java/testUtils/seleniumGrid`.
 
 - **Utilities**:
-    - `BrowserInit.java`: Located in `src/test/java/testUtils/`, this class initializes the browser.
-    - `ConfProperties.java`: Also in `src/test/java/testUtils/`, this class handles the properties from the configuration file.
-    - `NotTestUtils.java`: Found in the same directory, this class includes a method for calculating Fibonacci numbers.
+  - `BrowserInit.java`: Located in `src/test/java/testUtils/`, this class initializes the browser.
+  - `ConfProperties.java`: Also in `src/test/java/testUtils/`, this class handles properties from the configuration file.
+  - `MathUtils.java`: In the same directory, this class includes a method for calculating Fibonacci numbers.
+  - `TransactionUtils.java`: In the same directory, this class contains a method for writing serialized transactions to a csv file.
 
-- **Configuration**: The `conf.properties` file, containing test data and settings used by `BrowserInit.java`, is located in `src/test/resources`.
+- **Configuration**: The `conf.properties` file, containing test data and settings used in `BrowserInit.java`, is located in `src/test/resources`.
 
 - **GitHub Actions Workflow**: The workflow configuration for GitHub Actions is located in `.github/workflows/`.
 
@@ -94,33 +96,33 @@ https://zen2281488.github.io/Simbir_Test/44/index.html -  ссылка на Allu
 
 #### Bug Details
 
-- **Bug**: Empty Transactions Table
+- **Error**: Empty Transactions Table
 - **Priority**: High
 - **Severity**: Major
 - **Environment**: Chrome 125.0.6422.142
 
 #### Description
 
-When quickly filling and submitting the Deposit/Withdrawal form at https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account, and then clicking on the Transactions button, the resulting page displays an empty table.
+When quickly filling and submitting the Deposit/Withdrawal form at https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account, clicking the Transactions button opens a page with an empty table.
 
 #### Steps to Reproduce
 
-1. Perform authentication
-2. Navigate to https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account
+1. Log in
+2. Go to the page https://www.globalsqa.com/angularJs-protractor/BankingProject/#/account
 3. Click the Deposit (or Withdrawal) button
-4. Fill in the form with the placeholder amount
-5. Click the form submission button "Deposit" (or "Withdrawal")
-6. Quickly click on the Transactions button
+4. Fill out the form with the amount placeholder
+5. Click the "Deposit" (or Withdrawal) form submission button
+6. Quickly click the Transactions button
 
 #### Expected Result
 
-The page should open with a table containing the conducted transaction.
+A page with a table containing the transaction should open.
 
 #### Actual Result
 
-The page opens with an empty table.
+A page with an empty table opens.
 
 #### Note
 
-This bug can also be reproduced manually.
+This bug can be reproduced manually.
 </details>
