@@ -90,10 +90,4 @@ public class XyzAccountPage extends BasePage{
         return balance.getText();
     }
 
-    public void refreshPage() {
-        JavascriptExecutor js = (JavascriptExecutor) browser;
-        js.executeScript("location.reload();");
-    }
-
-
 }
