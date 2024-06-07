@@ -26,7 +26,9 @@ jobs:
       - name: Install Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          sudo apt-get install -y wget
+          wget https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.90-1_amd64.deb
+          sudo apt-get install -y ./google-chrome-stable_114.0.5735.90-1_amd64.deb
 
       - name: Install ChromeDriver
         run: |
