@@ -64,13 +64,13 @@ public class BrowserInit {
                 case "localwork":
                     switch (getCommonProperty("browserName")) {
                         case "chromeActions":
-                            WebDriverManager.chromedriver().driverVersion("125").browserVersion("125").setup();
-                            chromeOptions = new ChromeOptions()
+                            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+                            ChromeOptions chromeOptions = new ChromeOptions()
                                     .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
                             if (getCommonBoolProperty("headlessMode")) {
                                 chromeOptions.setHeadless(true);
                             }
-                            driver = new ChromeDriver(chromeOptions);
+                            WebDriver driver = new ChromeDriver(chromeOptions);
                             break;
                         case "chromeDocker":
                             System.setProperty("webdriver.chrome.driver", "/src/test/resources/drivers/chromedriver");
