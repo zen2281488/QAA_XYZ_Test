@@ -45,8 +45,13 @@ public class BrowserInit {
                 case "local":
                     switch (getCommonProperty("browserName")) {
                         case "chrome":
-                            System.setProperty("webdriver.chrome.driver", getCommonProperty("chromedriverLocal"));
-                            driver = new ChromeDriver(new ChromeOptions().addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880").setHeadless(ConfProperties.getCommonBoolProperty("headlessMode")));
+                            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+                            ChromeOptions chromeOptions = new ChromeOptions()
+                                    .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
+                            if (getCommonBoolProperty("headlessMode")) {
+                                chromeOptions.setHeadless(true);
+                            }
+                            driver = new ChromeDriver(chromeOptions);
                             break;
                         case "firefox":
                             System.setProperty("webdriver.gecko.driver", getCommonProperty("geckodriverLocal"));
@@ -70,7 +75,7 @@ public class BrowserInit {
                             if (getCommonBoolProperty("headlessMode")) {
                                 chromeOptions.setHeadless(true);
                             }
-                            WebDriver driver = new ChromeDriver(chromeOptions);
+                            driver = new ChromeDriver(chromeOptions);
                             break;
                         case "chromeDocker":
                             System.setProperty("webdriver.chrome.driver", "/src/test/resources/drivers/chromedriver");
