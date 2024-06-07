@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Fri Jun 07 13:08:23 GMT 2024","Fri Jun 07 13:08:52 GMT 2024","29866","","uiTests.WorkTest","","uiTests.WorkTest","transactionTest","Тест работоспособности отправки транзакций","Тест проверяет возможность отправки и списания денег со счёта клиента, а так же отображение истории этих транзакций и корректность изменения баланса пользователя."
