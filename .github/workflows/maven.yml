@@ -31,11 +31,9 @@ jobs:
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
           # Install ChromeDriver
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
           wget https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.141/linux64/chromedriver-linux64.zip
-          unzip chromedriver-linux64.zip
-          sudo mv chromedriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+          unzip chromedriver-linux64.zip -d chromedriver-linux64
+          sudo mv chromedriver-linux64/chromedriver
           
 
       - name: Run WorkTests
