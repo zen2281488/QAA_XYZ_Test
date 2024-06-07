@@ -5,6 +5,7 @@ import io.qameta.allure.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import page.XyzAccountPage;
 import page.XyzLoginPage;
 import utils.TransactionSerialize;
@@ -28,7 +29,7 @@ public class WorkTest extends BaseTest {
     @Feature("Отправка транзакций")
     @Description("Тест проверяет возможность отправки и списания денег со счёта клиента, а так же отображение истории этих транзакций и корректность изменения баланса пользователя.")
     @Severity(value = SeverityLevel.NORMAL)
-    @RepeatedIfExceptionsTest(repeats = 3)
+    @Test
     @Issue("XYZ-UI-Transaction")
     @DisplayName("Тест работоспособности отправки транзакций")
     public void transactionTest() {
@@ -42,7 +43,7 @@ public class WorkTest extends BaseTest {
                 .fillAmountWithDrawlInput(fibonacci)
                 .clickSubmitWithdrawlButton();
         Assertions.assertEquals("0",accountPage.getBalance());
-        accountPage.clickTransactionsButton().refresh();
+        accountPage.clickTransactionsButton();
         Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Credit"));
         Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Debit"));
         transaction.writeTransactionsToCSV();

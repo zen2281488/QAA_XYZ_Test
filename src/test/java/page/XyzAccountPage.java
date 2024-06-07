@@ -32,6 +32,8 @@ public class XyzAccountPage extends BasePage{
     private WebElement submitDepositButton;
     @FindBy(css = ".center strong:nth-child(2)")
     private WebElement balance;
+    @FindBy(css = ".error")
+    private WebElement message;
 
     @FindBy(css = "tbody")
     private WebElement transactionsTable;
@@ -60,6 +62,8 @@ public class XyzAccountPage extends BasePage{
     public XyzAccountPage clickSubmitWithdrawlButton(){
         wait.until(visibilityOf(submitWithdrawButton));
         submitWithdrawButton.click();
+        wait.until(visibilityOf(message));
+
         return this;
     }
 
@@ -67,6 +71,7 @@ public class XyzAccountPage extends BasePage{
     public XyzAccountPage clickSubmitDepositButton(){
         wait.until(visibilityOf(submitDepositButton));
         submitDepositButton.click();
+        wait.until(visibilityOf(message));
         return this;
     }
 
@@ -88,10 +93,6 @@ public class XyzAccountPage extends BasePage{
         return balance.getText();
     }
 
-    @Step("Обновление страницы")
-    public void refresh() {
-        browser.get(browser.getCurrentUrl());
-    }
 
 
 }
