@@ -88,5 +88,4 @@ public class XyzAccountPage extends BasePage {
     public String getBalance() {
         return balance.getText();
     }
-
 }
