@@ -6,10 +6,6 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -31,36 +27,6 @@ public class BrowserInit {
                         case "chrome":
                             driver = setUpRemoteDriver(new ChromeOptions());
                             break;
-                        case "firefox":
-                            driver = setUpRemoteDriver(new FirefoxOptions());
-                            break;
-                        case "edge":
-                            driver = setUpRemoteDriver(new EdgeOptions());
-                            break;
-                        default:
-                            throw new RuntimeException("Некорректное имя браузера");
-                    }
-                    break;
-
-                case "local":
-                    switch (getCommonProperty("browserName")) {
-                        case "chrome":
-                            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-                            ChromeOptions chromeOptions = new ChromeOptions()
-                                    .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
-                            if (getCommonBoolProperty("headlessMode")) {
-                                chromeOptions.setHeadless(true);
-                            }
-                            driver = new ChromeDriver(chromeOptions);
-                            break;
-                        case "firefox":
-                            System.setProperty("webdriver.gecko.driver", getCommonProperty("geckodriverLocal"));
-                            driver = new FirefoxDriver(new FirefoxOptions().addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880").setHeadless(ConfProperties.getCommonBoolProperty("headlessMode")));
-                            break;
-                        case "edge":
-                            System.setProperty("webdriver.edge.driver", getCommonProperty("edgedriverLocal"));
-                            driver = new EdgeDriver(new EdgeOptions().addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880").setHeadless(ConfProperties.getCommonBoolProperty("headlessMode")));
-                            break;
                         default:
                             throw new RuntimeException("Некорректное имя браузера");
                     }
@@ -71,17 +37,7 @@ public class BrowserInit {
                         case "chromeActions":
                             WebDriverManager.chromedriver().setup();
                             System.setProperty("webdriver.http.factory", "jdk-http-client");
-                            chromeOptions = new ChromeOptions()
-                                    .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
-                            if (getCommonBoolProperty("headlessMode")) {
-                                chromeOptions.setHeadless(true);
-                            }
-                            driver = new ChromeDriver(chromeOptions);
-                            break;
-                        case "chromeDocker":
-                            System.setProperty("webdriver.chrome.driver", "/src/test/resources/drivers/chromedriver");
-                            chromeOptions = new ChromeOptions()
-                                    .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
+                            chromeOptions = new ChromeOptions().addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
                             if (getCommonBoolProperty("headlessMode")) {
                                 chromeOptions.setHeadless(true);
                             }

@@ -5,41 +5,34 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class XyzAccountPage extends BasePage{
     public XyzAccountPage(WebDriver browser) {
         super(browser);
     }
 
-    @FindBy(xpath = "//button[@ng-class='btnClass2']")
+    @FindBy(css = "[ng-click^=deposit]")
     private WebElement depositButton;
 
-    @FindBy(xpath = "//button[@ng-class='btnClass3']")
+    @FindBy(css = "[ng-click^=withdrawl]")
     private WebElement withDrawlButton;
-    @FindBy(xpath = "//button[@ng-class='btnClass1']")
+    @FindBy(css = "[ng-click^=transactions]")
     private WebElement transactionsButton;
 
-    //todo Wrong selector
-    @FindBy(xpath = "//label[contains(text(), 'Deposited')]/following-sibling::input")
+    @FindBy(css = "[ng-submit^=deposit] input")
     private WebElement amountDepositInput;
-    //todo Wrong selector
-    @FindBy(xpath = "//label[contains(text(), 'Withdrawn')]/following-sibling::input")
+    @FindBy(css = "[ng-submit^=withdrawl] input")
     private WebElement amountWithDrawInput;
-    @FindBy(xpath = "//button[text()='Withdraw']")
+    @FindBy(css = "[ng-submit^=withdrawl] button")
     private WebElement submitWithdrawButton;
-    @FindBy(xpath = "//button[text()='Deposit']")
+    @FindBy(css = "[ng-submit^=deposit] button")
     private WebElement submitDepositButton;
     @FindBy(css = ".center strong:nth-child(2)")
     private WebElement balance;
     @FindBy(css = ".error")
     private WebElement message;
-
-    @FindBy(css = "tbody")
-    private WebElement transactionsTable;
 
     @Step("Клик по кнопке 'Deposit'")
     public XyzAccountPage clickDepositButton(){

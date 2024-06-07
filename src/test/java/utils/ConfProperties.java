@@ -16,7 +16,6 @@ public class ConfProperties {
         return commonProperties.getProperty(key);
     }
 
-
     public static boolean getCommonBoolProperty(String key) {
         return Boolean.parseBoolean(commonProperties.getProperty(key));
     }

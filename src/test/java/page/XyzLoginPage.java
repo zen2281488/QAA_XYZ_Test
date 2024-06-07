@@ -6,19 +6,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
-import static utils.ConfProperties.getCommonProperty;
 
 public class XyzLoginPage extends BasePage{
     public XyzLoginPage(WebDriver browser) {
         super(browser);
     }
 
-    //todo Wrong selector
-    @FindBy(css = ".padT20 :nth-child(1) button")
+    @FindBy(css = "[ng-click^=customer]")
     private WebElement customerLoginButton;
     @FindBy(id = "userSelect")
     private WebElement yourNameSelector;
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(css = ".btn-default")
     private WebElement submitLoginButton;
 
     @Step("Клик по кнопке 'Customer Login'")

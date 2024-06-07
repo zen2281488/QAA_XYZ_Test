@@ -1,14 +1,19 @@
 package uiTests;
 
-import io.github.artsok.RepeatedIfExceptionsTest;
-import io.qameta.allure.*;
+import io.qameta.allure.Step;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Issue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import page.XyzAccountPage;
 import page.XyzLoginPage;
-import utils.TransactionSerialize;
+import page.XyzTransactionPage;
 
 import static utils.ConfProperties.getCommonProperty;
 import static utils.NotTestUtils.fibonacci;
@@ -17,13 +22,13 @@ import static utils.NotTestUtils.fibonacci;
 public class WorkTest extends BaseTest {
     private XyzAccountPage accountPage;
     private XyzLoginPage loginPage;
-    private TransactionSerialize transaction;
+    private XyzTransactionPage transaction;
     @BeforeEach
     @Step("Инициализация страниц")
     public void before() {
         accountPage = new XyzAccountPage(driver);
         loginPage = new XyzLoginPage(driver);
-        transaction = new TransactionSerialize(driver);
+        transaction = new XyzTransactionPage(driver);
     }
 
     @Feature("Отправка транзакций")
@@ -49,7 +54,5 @@ public class WorkTest extends BaseTest {
         Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Debit"));
         transaction.writeTransactionsToCSV();
 
-
     }
-
 }
