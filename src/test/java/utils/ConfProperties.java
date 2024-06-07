@@ -9,7 +9,6 @@ public class ConfProperties {
 
     static {
         commonProperties = loadProperties("src/test/resources/conf.properties");
-
     }
 
     public static String getCommonProperty(String key) {

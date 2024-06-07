@@ -1,4 +1,5 @@
 package uiTests;
+
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

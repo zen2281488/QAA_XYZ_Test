@@ -1,26 +1,23 @@
 package page;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
-public class XyzAccountPage extends BasePage{
+public class XyzAccountPage extends BasePage {
     public XyzAccountPage(WebDriver browser) {
         super(browser);
     }
 
     @FindBy(css = "[ng-click^=deposit]")
     private WebElement depositButton;
-
     @FindBy(css = "[ng-click^=withdrawl]")
     private WebElement withDrawlButton;
     @FindBy(css = "[ng-click^=transactions]")
     private WebElement transactionsButton;
-
     @FindBy(css = "[ng-submit^=deposit] input")
     private WebElement amountDepositInput;
     @FindBy(css = "[ng-submit^=withdrawl] input")
@@ -35,27 +32,28 @@ public class XyzAccountPage extends BasePage{
     private WebElement message;
 
     @Step("Клик по кнопке 'Deposit'")
-    public XyzAccountPage clickDepositButton(){
+    public XyzAccountPage clickDepositButton() {
         wait.until(visibilityOf(depositButton));
         depositButton.click();
         return this;
     }
 
     @Step("Клик по кнопке 'WithDrawl'")
-    public XyzAccountPage clickWithDrawlButton(){
+    public XyzAccountPage clickWithDrawlButton() {
         wait.until(visibilityOf(withDrawlButton));
         withDrawlButton.click();
         return this;
     }
 
     @Step("Клик по кнопке 'Transactions'")
-    public XyzAccountPage clickTransactionsButton(){
+    public XyzAccountPage clickTransactionsButton() {
         wait.until(visibilityOf(transactionsButton));
         transactionsButton.click();
         return this;
     }
+
     @Step("Клик по кнопке отправки транзакции 'Withdrawl'")
-    public XyzAccountPage clickSubmitWithdrawlButton(){
+    public XyzAccountPage clickSubmitWithdrawlButton() {
         wait.until(visibilityOf(submitWithdrawButton));
         submitWithdrawButton.click();
         wait.until(visibilityOf(message));
@@ -63,7 +61,7 @@ public class XyzAccountPage extends BasePage{
     }
 
     @Step("Клик по кнопке отправки транзакции 'Deposit'")
-    public XyzAccountPage clickSubmitDepositButton(){
+    public XyzAccountPage clickSubmitDepositButton() {
         wait.until(visibilityOf(submitDepositButton));
         submitDepositButton.click();
         wait.until(visibilityOf(message));
@@ -71,14 +69,15 @@ public class XyzAccountPage extends BasePage{
     }
 
     @Step("Заполнение поля Deposit числом фибоначи: {num} ")
-    public XyzAccountPage fillAmountDepositInput(int num){
+    public XyzAccountPage fillAmountDepositInput(int num) {
         wait.until(visibilityOf(amountDepositInput));
         amountDepositInput.clear();
         amountDepositInput.sendKeys(Integer.toString(num));
         return this;
     }
+
     @Step("Заполнение поля WithDrawl числом фибоначи: {num} ")
-    public XyzAccountPage fillAmountWithDrawlInput(int num){
+    public XyzAccountPage fillAmountWithDrawlInput(int num) {
         wait.until(visibilityOf(amountWithDrawInput));
         amountWithDrawInput.clear();
         amountWithDrawInput.sendKeys(Integer.toString(num));

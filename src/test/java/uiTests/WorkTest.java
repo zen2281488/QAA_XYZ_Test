@@ -23,6 +23,7 @@ public class WorkTest extends BaseTest {
     private XyzAccountPage accountPage;
     private XyzLoginPage loginPage;
     private XyzTransactionPage transaction;
+
     @BeforeEach
     @Step("Инициализация страниц")
     public void before() {
@@ -41,14 +42,9 @@ public class WorkTest extends BaseTest {
         driver.get(getCommonProperty("loginPageUrl"));
         loginPage.clickCustomerLoginButton().selectTestUser(getCommonProperty("userName")).clickSubmitLoginButton();
         var fibonacci = fibonacci();
-        accountPage.clickDepositButton()
-                .fillAmountDepositInput(fibonacci)
-                .clickSubmitDepositButton()
-                .clickWithDrawlButton()
-                .fillAmountWithDrawlInput(fibonacci)
-                .clickSubmitWithdrawlButton();
+        accountPage.clickDepositButton().fillAmountDepositInput(fibonacci).clickSubmitDepositButton().clickWithDrawlButton().fillAmountWithDrawlInput(fibonacci).clickSubmitWithdrawlButton();
         driver.navigate().refresh();
-        Assertions.assertEquals("0",accountPage.getBalance());
+        Assertions.assertEquals("0", accountPage.getBalance());
         accountPage.clickTransactionsButton();
         Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Credit"));
         Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Debit"));

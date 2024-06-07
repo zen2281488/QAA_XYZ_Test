@@ -45,10 +45,7 @@ public class XyzTransactionPage extends BasePage {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
         List<WebElement> rows = browser.findElements(tableRowsLocator);
 
-        return rows.stream()
-                .map(this::parseTransactionFromRow)
-                .filter(transaction -> transaction != null)
-                .collect(Collectors.toList());
+        return rows.stream().map(this::parseTransactionFromRow).filter(transaction -> transaction != null).collect(Collectors.toList());
     }
 
     public void writeTransactionsToCSV() {
@@ -64,9 +61,7 @@ public class XyzTransactionPage extends BasePage {
                 writer.append("Date,Amount,Transaction Type\n");
                 transactions.forEach(transaction -> {
                     try {
-                        writer.append(transaction.getDate()).append(',')
-                                .append(String.valueOf(transaction.getAmount())).append(',')
-                                .append(transaction.getTransactionType()).append('\n');
+                        writer.append(transaction.getDate()).append(',').append(String.valueOf(transaction.getAmount())).append(',').append(transaction.getTransactionType()).append('\n');
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -83,7 +78,6 @@ public class XyzTransactionPage extends BasePage {
     }
 
     public boolean verifyTransaction(int amount, String type) {
-        return getTransactions().stream()
-                .anyMatch(transaction -> transaction.getAmount() == amount && transaction.getTransactionType().equals(type));
+        return getTransactions().stream().anyMatch(transaction -> transaction.getAmount() == amount && transaction.getTransactionType().equals(type));
     }
 }
