@@ -43,6 +43,7 @@ public class WorkTest extends BaseTest {
                 .fillAmountWithDrawlInput(fibonacci)
                 .clickSubmitWithdrawlButton();
         driver.navigate().refresh();
+        driver.navigate().refresh();
         Assertions.assertEquals("0",accountPage.getBalance());
         accountPage.clickTransactionsButton();
         Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Credit"));
