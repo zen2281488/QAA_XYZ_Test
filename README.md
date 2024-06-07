@@ -27,6 +27,7 @@ https://zen2281488.github.io/Simbir_Test/44/index.html -  ссылка на Allu
 ---
 <details>
 <summary>Project Structure(Eng)</summary>
+
 ## Project Structure
 
 - **Page Objects**: Located in `src/test/java/page`, these classes represent the page objects for the application under test.
