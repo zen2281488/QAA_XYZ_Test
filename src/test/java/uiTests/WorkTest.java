@@ -32,7 +32,7 @@ public class WorkTest extends BaseTest {
     @Test
     @Issue("XYZ-UI-Transaction")
     @DisplayName("Тест работоспособности отправки транзакций")
-    public void transactionTest() {
+    public void transactionTest() throws InterruptedException {
         driver.get(getCommonProperty("loginPageUrl"));
         loginPage.clickCustomerLoginButton().selectTestUser(getCommonProperty("userName")).clickSubmitLoginButton();
         var fibonacci = fibonacci();
@@ -43,7 +43,7 @@ public class WorkTest extends BaseTest {
                 .fillAmountWithDrawlInput(fibonacci)
                 .clickSubmitWithdrawlButton();
         driver.navigate().refresh();
-        driver.navigate().refresh();
+        Thread.sleep(1000);
         Assertions.assertEquals("0",accountPage.getBalance());
         accountPage.clickTransactionsButton();
         Assertions.assertTrue(transaction.verifyTransaction(fibonacci, "Credit"));
